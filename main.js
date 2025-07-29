@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, Menu, Notification, nativeTheme } = require('electron');
+const { app, BrowserWindow, Tray, Menu, Notification, nativeTheme, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
@@ -6,6 +6,8 @@ let mainWindow;
 let tray;
 let configPath = path.join(app.getPath('userData'), 'window-state.json');
 let windowState = loadWindowState();
+
+let aboutWindow;
 
 // Load window size/position
 function loadWindowState() {
@@ -39,14 +41,74 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js')  // CSS injection happens here
     }
   });
+	
+function createAboutWindow() {
+  if (aboutWindow) {
+    aboutWindow.focus();
+    return;
+  }
+
+  aboutWindow = new BrowserWindow({
+    width: 600,
+    height: 400,
+    title: 'About NixMessages',
+    resizable: false,
+    minimizable: false,
+    maximizable: false,
+    modal: true,
+    parent: mainWindow,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+    }
+  });
+
+  aboutWindow.setMenu(null); // Hide menu bar
+
+  aboutWindow.loadURL('data:text/html;charset=utf-8,' + encodeURIComponent(`
+    <h1>About NixMessages</h1>
+    <p>Version: 1.0.0</p>
+    <p>Author: Keith Henderson</p>
+    <p><a href="https://www.rizzforge.org">www.rizzforge.org</a></p>
+    <p>A simple desktop client for Google Messages.</p>
+    <p><a href="https://github.com/lairizzle/nixmessages">GitHub</a></p>
+    <button onclick="window.close()">Close</button>
+    <style>
+      body { font-family: sans-serif; padding: 20px; }
+      h1 { margin-top: 0; }
+      button { margin-top: 20px; }
+      a { color: #0366d6; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+    </style>
+  `));
+
+  // Force links to open in user's default browser
+  aboutWindow.webContents.setWindowOpenHandler(({ url }) => {
+    shell.openExternal(url);
+    return { action: 'deny' };
+  });
+
+  aboutWindow.webContents.on('will-navigate', (event, url) => {
+    event.preventDefault();
+    shell.openExternal(url);
+  });
+
+  aboutWindow.on('closed', () => {
+    aboutWindow = null;
+  });
+}
 
   mainWindow.loadURL('https://messages.google.com/web');
 
+  mainWindow.webContents.on('did-finish-load', () => {
+   mainWindow.setTitle('NixMessages');
+});
+
+
   // Apply saved theme
   nativeTheme.themeSource = windowState.darkMode ? 'dark' : 'light';
-
-  // Minimize to tray on close
-  mainWindow.on('close', (event) => {
+  
+	mainWindow.on('close', (event) => {
     if (!app.isQuiting) {
       event.preventDefault();
       mainWindow.hide();
@@ -68,7 +130,7 @@ function createWindow() {
   function createMenu() {
     return Menu.buildFromTemplate([
       {
-        label: 'Application',
+        label: 'Options',
         submenu: [
           {
             label: windowState.darkMode ? 'Disable Dark Mode' : 'Enable Dark Mode',
@@ -97,10 +159,21 @@ function createWindow() {
       {
         label: 'Window',
         submenu: [
-          { role: 'minimize' },
           { role: 'close' }
         ]
-      }
+      },
+		{
+	label: 'Help',
+			submenu: [
+				{
+					label: 'About',
+					click: () => {
+						createAboutWindow();
+					}
+				}
+			]
+		}
+
     ]);
   }
 
@@ -165,5 +238,3 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
-
-
