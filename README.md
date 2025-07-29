@@ -38,9 +38,9 @@ nixmessages
 Sign into Google Messages Web normally.
 
 The app will:
-    - Remember your login state
-    - Notify you of new messages
-    - Minimize to tray when closed (click tray icon to restore)
+- Remember your login state
+- Notify you of new messages
+- Minimize to tray when closed (click tray icon to restore)
 
 ### Configuration / Behavior
 
