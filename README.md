@@ -18,28 +18,23 @@ It supports **tray minimization, dark mode toggling, saved window state, and not
 
 ## Installation
 
-### Clone & Install
-
-Installation (Arch Linux)
-    Download both files from this release:
-        - nixmessages-1.0.0.tar.gz (source tarball)
-        - PKGBUILD
+### Installation (Arch Linux)
 
 ```bash
-mkdir nixmessages-build && cd nixmessages-build
-mv /path/to/nixmessages-1.0.0.tar.gz /path/to/PKGBUILD .
+# Download the PKGBUILD from GitHub
+wget https://github.com/lairizzle/nixmessages/releases/latest/download/PKGBUILD
+
+# Build and install
 makepkg -si
-```
-
-Run with
-```bash
-nixmessages
 ```
 
 ### Usage
 
-Launch the app.
+Launch the app. 
 
+```bash
+nixmessages
+```
 Sign into Google Messages Web normally.
 
 The app will:
