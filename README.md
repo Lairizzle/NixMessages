@@ -21,9 +21,7 @@ It supports **tray minimization, dark mode toggling, saved window state, and not
 ### Clone & Install
 
 ```bash
-git clone https://github.com/yourusername/nixmessages.git
-cd nixmessages
-npm install
+makepkg -si
 ```
 
 ### Usage

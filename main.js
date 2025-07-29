@@ -50,7 +50,7 @@ function createAboutWindow() {
 
   aboutWindow = new BrowserWindow({
     width: 600,
-    height: 400,
+    height: 350,
     title: 'About NixMessages',
     resizable: false,
     minimizable: false,
@@ -66,6 +66,7 @@ function createAboutWindow() {
   aboutWindow.setMenu(null); // Hide menu bar
 
   aboutWindow.loadURL('data:text/html;charset=utf-8,' + encodeURIComponent(`
+    <center>
     <h1>About NixMessages</h1>
     <p>Version: 1.0.0</p>
     <p>Author: Keith Henderson</p>
@@ -80,6 +81,7 @@ function createAboutWindow() {
       a { color: #0366d6; text-decoration: none; }
       a:hover { text-decoration: underline; }
     </style>
+		<center>
   `));
 
   // Force links to open in user's default browser
