@@ -44,9 +44,6 @@ The app will:
 
 ### Configuration / Behavior
 
-Tray support: 
-    - Clicking the window close button will hide it to tray.
-Dark mode: 
-    - Toggles both Electron native theme and injected web styles.
-Window state: 
-    - Position and size saved to window-state.json in app data.
+- Clicking the window close button will hide it to tray.
+- Dark Mode toggles both Electron native theme and injected web styles.
+- Position and size saved to window-state.json in app data.
