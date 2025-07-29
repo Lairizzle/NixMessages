@@ -164,17 +164,17 @@ function createAboutWindow() {
           { role: 'close' }
         ]
       },
-		{
-	label: 'Help',
-			submenu: [
-				{
-					label: 'About',
-					click: () => {
-						createAboutWindow();
-					}
-				}
-			]
-		}
+      {
+        label: 'Help',
+        submenu: [
+          {
+            label: 'About',
+            click: () => {
+            createAboutWindow();
+          }
+        }
+      ]
+    }
 
     ]);
   }
