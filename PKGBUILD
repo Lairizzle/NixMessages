@@ -1,5 +1,5 @@
 pkgname=nixmessages
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 pkgdesc="Unofficial Google Messages desktop wrapper for Linux (Electron-based)"
 arch=('x86_64')
@@ -8,7 +8,7 @@ license=('MIT')
 depends=('electron')
 makedepends=('nodejs' 'npm')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/lairizzle/nixmessages/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('bc29d577d3eae68cbeea0695bb04fa1d4e41ec526c1f266643d352a12c3e0e3e') 
+sha256sums=('4aed903bf396a9031c88016ae6a0104d515b16b9faf7205f461f983c88f933d8') 
 
 build() {
   cd "$srcdir/$pkgname"

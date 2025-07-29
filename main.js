@@ -68,7 +68,7 @@ function createAboutWindow() {
   aboutWindow.loadURL('data:text/html;charset=utf-8,' + encodeURIComponent(`
     <center>
     <h1>About NixMessages</h1>
-    <p>Version: 1.0.0</p>
+    <p>Version: 1.0.1</p>
     <p>Author: Keith Henderson</p>
     <p><a href="https://www.rizzforge.org">www.rizzforge.org</a></p>
     <p>A simple desktop client for Google Messages.</p>
