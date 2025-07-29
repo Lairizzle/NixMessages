@@ -20,8 +20,20 @@ It supports **tray minimization, dark mode toggling, saved window state, and not
 
 ### Clone & Install
 
+Installation (Arch Linux)
+    Download both files from this release:
+        - nixmessages-1.0.0.tar.gz (source tarball)
+        - PKGBUILD
+
 ```bash
+mkdir nixmessages-build && cd nixmessages-build
+mv /path/to/nixmessages-1.0.0.tar.gz /path/to/PKGBUILD .
 makepkg -si
+```
+
+Run with
+```bash
+nixmessages
 ```
 
 ### Usage
