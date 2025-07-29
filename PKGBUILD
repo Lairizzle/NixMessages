@@ -8,7 +8,7 @@ license=('MIT')
 depends=('electron')
 makedepends=('nodejs' 'npm')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/lairizzle/nixmessages/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('0bc742a4a554da18e177551c3dbf8528170d5e4c462a22791a7caabd02672e33') 
+sha256sums=('bc29d577d3eae68cbeea0695bb04fa1d4e41ec526c1f266643d352a12c3e0e3e') 
 
 build() {
   cd "$srcdir/$pkgname"
