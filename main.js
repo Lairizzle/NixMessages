@@ -100,11 +100,23 @@ function createAboutWindow() {
   });
 }
 
-  mainWindow.loadURL('https://messages.google.com/web');
+mainWindow.loadURL('https://messages.google.com/web');
 
-  mainWindow.webContents.on('did-finish-load', () => {
-   mainWindow.setTitle('NixMessages');
+mainWindow.webContents.on('did-finish-load', () => {
+  mainWindow.setTitle('NixMessages');
+
+  mainWindow.webContents.on('page-title-updated', (event, title) => {
+    event.preventDefault();
+
+    // Extract unread count if present
+    const match = title.match(/\((\d+)\)/); // looks for "(number)"
+    const count = match ? ` (${match[1]})` : '';
+
+    // Set the window title to always include "NixMessages"
+    mainWindow.setTitle(`NixMessages${count}`);
+  });
 });
+
 
 
   // Apply saved theme
