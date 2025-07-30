@@ -68,7 +68,7 @@ function createAboutWindow() {
   aboutWindow.loadURL('data:text/html;charset=utf-8,' + encodeURIComponent(`
     <center>
     <h1>About NixMessages</h1>
-    <p>Version: 1.0.1</p>
+    <p>Version: 1.0.2</p>
     <p>Author: Keith Henderson</p>
     <p><a href="https://www.rizzforge.org">www.rizzforge.org</a></p>
     <p>A simple desktop client for Google Messages.</p>
@@ -140,62 +140,62 @@ mainWindow.webContents.on('did-finish-load', () => {
     }
   });
 
-  // --- Build dynamic menu ---
-  function createMenu() {
-    return Menu.buildFromTemplate([
-      {
-        label: 'Options',
-        submenu: [
-          {
-            label: windowState.darkMode ? 'Disable Dark Mode' : 'Enable Dark Mode',
-            click: () => {
-              windowState.darkMode = !windowState.darkMode;
-              nativeTheme.themeSource = windowState.darkMode ? 'dark' : 'light';
+// --- Build dynamic menu ---
+function createMenu() {
+  return Menu.buildFromTemplate([
+    {
+      label: 'File',
+      submenu: [
+        {
+          label: windowState.darkMode ? 'Disable Dark Mode' : 'Enable Dark Mode',
+          click: () => {
+            windowState.darkMode = !windowState.darkMode;
+            nativeTheme.themeSource = windowState.darkMode ? 'dark' : 'light';
 
-              // Tell the web page to toggle its injected dark mode CSS
-              mainWindow.webContents.send('toggle-dark', windowState.darkMode);
+            // Tell the web page to toggle its injected dark mode CSS
+            mainWindow.webContents.send('toggle-dark', windowState.darkMode);
 
-              // Refresh the menu label
-              Menu.setApplicationMenu(createMenu());
-            }
-          },
-          { type: 'separator' },
-          {
-            label: 'Quit',
-            click: () => {
-              app.isQuiting = true;
-              saveWindowState();
-              app.quit();
+            // Refresh the menu label dynamically
+            Menu.setApplicationMenu(createMenu());
+          }
+        },
+        { type: 'separator' },
+        {
+          label: 'Minimize',
+          click: () => {
+            if (mainWindow) {
+            mainWindow.hide();
             }
           }
-        ]
-      },
-      {
-        label: 'Window',
-        submenu: [
-          { role: 'close' }
-        ]
-      },
-      {
-        label: 'Help',
-        submenu: [
-          {
-            label: 'About',
-            click: () => {
+        },
+        {
+          label: 'Quit',
+          click: () => {
+            app.isQuiting = true;
+            saveWindowState();
+            app.quit();
+          }
+        }
+      ]
+    },
+    {
+      label: 'Help',
+      submenu: [
+        {
+          label: 'About',
+          click: () => {
             createAboutWindow();
           }
         }
       ]
     }
-
-    ]);
-  }
+  ]);
+}
 
   Menu.setApplicationMenu(createMenu());
   mainWindow.setMenuBarVisibility(true);
   mainWindow.autoHideMenuBar = false;
 }
-
 
 app.whenReady().then(() => {
   createWindow();
